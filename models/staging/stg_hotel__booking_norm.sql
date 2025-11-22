@@ -1,0 +1,41 @@
+{{
+  config(
+    materialized='view',
+  )
+}}
+
+WITH base__hotel_booking AS (
+    SELECT * 
+    FROM {{ ref("base__hotel_booking") }}
+    ),
+
+renamed_casted AS ( 
+    SELECT
+        booking_id,
+        MD5(CONCAT(name, email)) as client_id,
+        MD5(hotel) as hotel_id,
+        MD5(CONCAT(TO_VARCHAR(arrival_date_year), '-',TO_VARCHAR(arrival_date_month), '-',TO_VARCHAR(arrival_date_day_of_month), '-',TO_VARCHAR(arrival_date_week_number))) AS arrival_id,
+        CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
+        MD5(CONCAT(reserved_room_type, '-', assigned_room_type)) as room_id,
+        MD5(country) as country_id,
+        stays_in_weekend_nights,
+        stays_in_week_nights,
+        stays_in_weekend_nights + stays_in_week_nights as total_stays_nights,
+        meal,
+        market_segment,
+        distribution_channel,
+        deposit_type,
+        customer_type,
+        previous_cancellations,
+        previous_bookings_not_canceled,
+        booking_changes,
+        days_in_waiting_list,
+        adr,
+        required_car_parking_spaces,
+        total_of_special_requests,
+        reservation_status,
+        
+        FROM base__hotel_booking  
+    )
+
+SELECT * FROM renamed_casted
