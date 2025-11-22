@@ -5,16 +5,14 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT adults, children, babies, date_load
+    SELECT deposit_type, date_load
     FROM {{ ref("base__hotel_booking") }}
     ),
 
 renamed_casted AS ( 
     SELECT
-        CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
-        adults,
-        children,
-        babies,
+        MD5(deposit_type) as deposit_id,
+        deposit_type,
         date_load
     FROM base__hotel_booking  
     )

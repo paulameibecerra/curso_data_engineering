@@ -5,7 +5,7 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT name, email, phone_number, credit_card
+    SELECT name, email, phone_number, credit_card, date_load
     FROM {{ ref("base__hotel_booking") }}
     ),
 
@@ -15,7 +15,8 @@ renamed_casted AS (
         name,
         email,
         phone_number,
-        credit_card
+        credit_card,
+        date_load
 
     FROM base__hotel_booking  
     )

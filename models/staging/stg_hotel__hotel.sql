@@ -5,14 +5,15 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT hotel
+    SELECT hotel, date_load
     FROM {{ ref("base__hotel_booking") }}
     ),
 
 renamed_casted AS ( 
     SELECT
         MD5(hotel) as hotel_id,
-        hotel
+        hotel,
+        date_load
 
     FROM base__hotel_booking  
     )
