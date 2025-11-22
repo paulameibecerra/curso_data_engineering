@@ -1,0 +1,212 @@
+version: 2
+
+sources:
+
+  - name: hotel_project_bronze
+    schema: HOTEL
+    database: PROJECT_BRONZE
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+
+    tables:
+
+      - name: hotel_booking
+        identifier: HOTEL_BOOKING
+        description: "Tabla cruda (Capa Bronze) conteniendo todas las reservas de hotel. Se debe considerar la limpieza de valores 'NULL' o no aplicables en capas superiores."
+        columns:
+          - name: hotel
+            description: Tipo de hotel de la reserva.
+            tests:
+              - not_null
+          - name: is_canceled
+            description: Indicador de cancelación (1=Sí, 0=No).
+            tests:
+              - not_null
+
+          - name: lead_time
+            description: Días entre la fecha de reserva y la fecha de llegada.
+            tests:
+              - not_null
+
+
+          - name: arrival_date_year
+            description: Año de la llegada.
+            tests:
+              - not_null
+
+          - name: arrival_date_month
+            description: Mes de llegada.
+            tests:
+              - not_null
+
+          - name: arrival_date_week_number
+            description: Número de semana del año de llegada.
+            tests:
+              - not_null
+
+          - name: arrival_date_day_of_month
+            description: Día del mes de llegada.
+            tests:
+              - not_null
+
+          - name: stays_in_weekend_nights
+            description: Número de noches de fin de semana (Sábado o Domingo) que el huésped se quedó o reservó.
+            tests:
+              - not_null
+
+          - name: stays_in_week_nights
+            description: Número de noches entre semana (Lunes a Viernes) que el huésped se quedó o reservó.
+            tests:
+              - not_null
+
+          - name: adults
+            description: Número de adultos.
+            tests:
+              - not_null
+
+          - name: children
+            description: Número de niños.
+
+          - name: babies
+            description: Número de bebés.
+            tests:
+              - not_null
+
+          - name: meal
+            description: Tipo de régimen de comidas (BB, HB, FB, SC, Undefined).
+            tests:
+              - not_null
+
+          - name: country
+            description: País de origen (código ISO).
+            tests:
+              - not_null:
+                  config:
+                    severity: warn
+          - name: market_segment
+            description: Segmento de mercado (Online TA, Direct, Groups, etc.).
+            tests:
+              - not_null
+
+          - name: distribution_channel
+            description: Canal de distribución de la reserva (TA/TO, Direct, Corporate, etc.).
+            tests:
+              - not_null
+
+          - name: is_repeated_guest
+            description: Indicador si el huésped ya había reservado (1=Sí, 0=No).
+            tests:
+              - not_null
+
+          - name: previous_cancellations
+            description: Número de reservas canceladas previamente.
+            tests:
+              - not_null
+
+          - name: previous_bookings_not_canceled
+            description: Número de reservas previas no canceladas.
+            tests:
+              - not_null
+
+          - name: reserved_room_type
+            description: Tipo de habitación reservada (codificado A, B, C, etc.).
+            tests:
+              - not_null
+
+          - name: assigned_room_type
+            description: Tipo de habitación asignada (puede ser diferente a la reservada).
+            tests:
+              - not_null
+
+          - name: booking_changes
+            description: Número de cambios hechos a la reserva.
+            tests:
+              - not_null
+
+          - name: deposit_type
+            description: Tipo de depósito (No Deposit, Non Refund, Refundable).
+            tests:
+              - not_null
+
+          - name: agent
+            description: ID del agente de viajes. Contiene valores NULL.
+
+          - name: company
+            description: ID de la compañía. Contiene valores NULL.
+
+          - name: days_in_waiting_list
+            description: Número de días que la reserva estuvo en lista de espera.
+            tests:
+              - not_null
+
+          - name: customer_type
+            description: Tipo de cliente (Transient, Group, Contract, Transient-Party).
+            tests:
+              - not_null
+
+          - name: adr
+            description: Tarifa promedio diaria (Average Daily Rate). Puede ser negativa o cero.
+            tests:
+              - not_null
+
+          - name: required_car_parking_spaces
+            description: Número de plazas de aparcamiento requeridas.
+            tests:
+              - not_null
+
+          - name: total_of_special_requests
+            description: Número de peticiones especiales.
+            tests:
+              - not_null
+
+          - name: reservation_status
+            description: Estado final de la reserva.
+            tests:
+              - not_null
+
+          - name: reservation_status_date
+            description: Fecha en que se actualizó el estado de la reserva.
+            tests:
+              - not_null
+
+          - name: name
+            description: Nombre del huésped (información sensible, se debe eliminar en capas superiores).
+
+          - name: email
+            description: Correo electrónico del huésped (información sensible).
+
+          - name: phone_number
+            description: Número de teléfono del huésped (información sensible).
+
+          - name: credit_card
+            description: Número de tarjeta de crédito enmascarado (información sensible).
+
+          - name: _FIVETRAN_SYNCED
+            description: Marca de tiempo de la ingesta en el sistema.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    config:
+      freshness:
+        warn_after: {count: 24, period: hour}
+        error_after: {count: 48, period: hour}

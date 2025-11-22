@@ -1,0 +1,102 @@
+version: 2
+
+models:
+
+  ############################################################
+  # DIMENSIONES
+  ############################################################
+
+  - name: dim_client
+    description: "Información única de cada cliente (nombre, email, teléfono, validación email)"
+    columns:
+      - name: client_id
+        description: "Clave surrogate generada con MD5(name,email)"
+        tests:
+          - unique
+          - not_null
+      - name: name
+        description: "Nombre del cliente"
+        tests:
+          - not_null
+      - name: email
+        description: "Email del cliente"
+      - name: is_valid_email_address
+        description: "Flag que indica si el email cumple el regex válido"
+        tests:
+          - accepted_values:
+              values: [true, false]
+
+  - name: dim_arrival
+    description: "Dimensión con información del día de llegada"
+    columns:
+      - name: arrival_id
+        tests:
+          - unique
+          - not_null
+      - name: arrival_date
+      - name: arrival_date_year
+      - name: arrival_date_month_number
+      - name: arrival_date_month
+      - name: arrival_date_week_number
+      - name: arrival_date_day_of_month
+
+  - name: dim_hotel
+    description: "Dimensión de hotel: city vs resort"
+    columns:
+      - name: hotel_id
+        tests:
+          - unique
+          - not_null
+      - name: hotel
+
+  - name: dim_meal
+    description: "Dimensión con el tipo de meal plan"
+    columns:
+      - name: meal_id
+        tests:
+          - unique
+          - not_null
+      - name: meal
+
+  - name: dim_market_segment
+    description: "Segmento de mercado asociado a la reserva"
+    columns:
+      - name: market_segment_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_distribution_channel
+    description: "Canal por el cual se realizó la reserva"
+    columns:
+      - name: distribution_channel_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_deposit_type
+    description: "Tipo de depósito requerido para la reserva"
+    columns:
+      - name: deposit_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_customer_type
+    description: "Tipo de cliente (Transient, Contract,…)"
+    columns:
+      - name: customer_type_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_room
+    description: "Habitaciones reservadas y asignadas"
+    columns:
+      - name: room_id
+        tests:
+          - unique
+          - not_null
+
+
+  ######
