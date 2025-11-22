@@ -5,15 +5,14 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT meal, date_load
+    SELECT DISTINCT meal
     FROM {{ ref("base__hotel_booking") }}
     ),
 
 renamed_casted AS ( 
     SELECT
         MD5(meal) as meal_id,
-        meal,
-        date_load
+        meal
     FROM base__hotel_booking  
     )
 

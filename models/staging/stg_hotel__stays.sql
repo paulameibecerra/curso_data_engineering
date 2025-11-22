@@ -5,7 +5,7 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT stays_in_weekend_nights, stays_in_week_nights, date_load
+    SELECT DISTINCT stays_in_weekend_nights, stays_in_week_nights
     FROM {{ ref("base__hotel_booking") }}
     ),
 
@@ -14,8 +14,7 @@ renamed_casted AS (
         CONCAT(TO_VARCHAR(stays_in_weekend_nights), '-', TO_VARCHAR(stays_in_week_nights)) as stays_id,
         stays_in_weekend_nights,
         stays_in_week_nights,
-        stays_in_weekend_nights + stays_in_week_nights as total_stays_nights,
-        date_load
+        stays_in_weekend_nights + stays_in_week_nights as total_stays_nights
 
     FROM base__hotel_booking  
     )

@@ -5,15 +5,16 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT DISTINCT hotel
+    SELECT DISTINCT reserved_room_type, assigned_room_type
     FROM {{ ref("base__hotel_booking") }}
     ),
 
+
 renamed_casted AS ( 
     SELECT
-        MD5(hotel) as hotel_id,
-        hotel
-
+        CONCAT(reserved_room_type, '-', assigned_room_type) as room_id,
+        reserved_room_type,
+        assigned_room_type
     FROM base__hotel_booking  
     )
 

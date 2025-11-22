@@ -5,7 +5,7 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT adults, children, babies, date_load
+    SELECT DISTINCT adults, children, babies
     FROM {{ ref("base__hotel_booking") }}
     ),
 
@@ -14,8 +14,7 @@ renamed_casted AS (
         CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
         adults,
         children,
-        babies,
-        date_load
+        babies
     FROM base__hotel_booking  
     )
 

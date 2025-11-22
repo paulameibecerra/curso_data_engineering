@@ -5,15 +5,14 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT deposit_type, date_load
+    SELECT DISTINCT deposit_type
     FROM {{ ref("base__hotel_booking") }}
     ),
 
 renamed_casted AS ( 
     SELECT
         MD5(deposit_type) as deposit_id,
-        deposit_type,
-        date_load
+        deposit_type
     FROM base__hotel_booking  
     )
 

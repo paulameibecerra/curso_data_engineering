@@ -1,7 +1,7 @@
 unit_tests:
   - name: test_is_valid_email
     description: "Check if email is valid"
-    model: stg__hotel_booking
+    model: stg_hotel__client
     given:
       - input: source('hotel_project_bronze', 'hotel_booking')
         rows:
