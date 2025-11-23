@@ -14,7 +14,9 @@ renamed_casted AS (
         CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
         adults,
         children,
-        babies
+        babies,
+        adults + children + babies as total
+
     FROM base__hotel_booking  
     )
 

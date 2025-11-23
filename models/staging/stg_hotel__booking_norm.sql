@@ -12,7 +12,7 @@ WITH base__hotel_booking AS (
 renamed_casted AS ( 
     SELECT
         booking_id,
-        MD5(CONCAT(name, email)) as client_id,
+        MD5(CONCAT(LOWER(name), LOWER(email))) as client_id,
         MD5(hotel) as hotel_id,
         MD5(CONCAT(TO_VARCHAR(arrival_date_year), '-',TO_VARCHAR(arrival_date_month), '-',TO_VARCHAR(arrival_date_day_of_month), '-',TO_VARCHAR(arrival_date_week_number))) AS arrival_id,
         CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
