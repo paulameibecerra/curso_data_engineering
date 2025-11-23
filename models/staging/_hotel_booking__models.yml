@@ -1,0 +1,248 @@
+version: 2
+
+models:
+
+  - name: stg_hotel__booking_norm
+    description: >
+      Staging table normalizing booking-level information.
+      Provides all foreign keys needed for gold fact tables.
+    columns:
+      - name: booking_id
+        description: "Hash-based unique booking identifier."
+        tests:
+          - not_null
+          - unique
+
+      - name: client_id
+        description: "Hash key identifying the client."
+        tests:
+          - not_null
+
+      - name: hotel_id
+        description: "Hash key identifying the hotel."
+        tests:
+          - not_null
+
+      - name: arrival_id
+        description: "Hash key for the normalized arrival dimension."
+        tests:
+          - not_null
+
+      - name: person_count_id
+        description: "Hash key for the combination of adults/children/babies."
+        tests:
+          - not_null
+
+      - name: room_id
+        description: "Hash key for reserved vs assigned room type."
+        tests:
+          - not_null
+
+      - name: stays_id
+        description: "Hash key for weekend/weekday stays."
+        tests:
+          - not_null
+
+      - name: meal_id
+        description: "Hash key for meal type."
+
+      - name: market_segment_id
+        description: "Hash key for market segment."
+
+      - name: distribution_channel_id
+        description: "Hash key for distribution channel."
+
+      - name: deposit_id
+        description: "Hash key identifying the deposit type."
+
+      - name: customer_type_id
+        description: "Hash key identifying the customer type."
+
+      - name: previous_cancellations
+        description: "Total number of previous cancellations."
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+      - name: previous_bookings_not_canceled
+        description: "Previous bookings that were not canceled."
+        tests:
+          - not_null
+
+      - name: booking_changes
+        description: "Number of changes applied to the booking."
+        tests:
+          - not_null
+
+      - name: days_in_waiting_list
+        description: "Days waiting before confirmation."
+        tests:
+          - not_null
+
+      - name: adr
+        description: "Average Daily Rate."
+        tests:
+          - not_null
+
+      - name: required_car_parking_spaces
+        description: "Parking spots requested."
+
+      - name: total_of_special_requests
+        description: "Total special requests by the guest."
+
+      - name: reservation_status
+        description: "Final booking status."
+
+      - name: date_load
+        description: "Load timestamp coming from Fivetran."
+        tests:
+          - not_null
+
+
+
+  - name: stg_hotel__arrival
+    description: "Staging of arrival date fields and derived month number."
+    columns:
+      - name: arrival_id
+        tests:
+          - not_null
+          - unique
+
+      - name: arrival_date_year
+      - name: arrival_date_month
+      - name: arrival_date_month_number
+      - name: arrival_date_week_number
+      - name: arrival_date_day_of_month
+
+      - name: arrival_date
+        description: "Full arrival date (DATE)."
+        tests:
+          - not_null
+
+      - name: date_load
+        description: "Load timestamp."
+
+
+
+  - name: stg_hotel__client
+    description: "Staging table of client information with email validation."
+    columns:
+      - name: client_id
+        tests:
+          - not_null
+          - unique
+
+      - name: name
+      - name: email
+
+      - name: is_valid_email_address
+        description: "Boolean flag indicating if email meets regex validation."
+        tests:
+          - not_null
+
+      - name: phone_number
+      - name: credit_card
+
+      - name: date_load
+
+
+  - name: stg_hotel__hotel
+    description: "List of hotels present in the dataset."
+    columns:
+      - name: hotel_id
+        tests:
+          - not_null
+          - unique
+      - name: hotel
+      - name: date_load
+
+
+
+  - name: stg_hotel__stays
+    description: "Weekend/weekday night counts + totals."
+    columns:
+      - name: stays_id
+        tests:
+          - not_null
+          - unique
+
+      - name: stays_in_weekend_nights
+      - name: stays_in_week_nights
+      - name: total_stays_nights
+
+      - name: date_load
+
+
+
+  - name: stg_hotel__n_persons
+    description: "Combinations of adults, children and babies."
+    columns:
+      - name: person_count_id
+        tests:
+          - not_null
+          - unique
+      - name: adults
+      - name: children
+      - name: babies
+      - name: date_load
+
+
+
+  - name: stg_hotel__meal
+    description: "Staging table of meal types."
+    columns:
+      - name: meal_id
+        tests:
+          - not_null
+          - unique
+      - name: meal
+      - name: date_load
+
+
+
+  - name: stg_hotel__market_segment
+    description: "Market segment categories."
+    columns:
+      - name: market_segment_id
+        tests:
+          - not_null
+          - unique
+      - name: market_segment
+      - name: date_load
+
+
+
+  - name: stg_hotel__distribution_channel
+    description: "Staging table for distribution channels."
+    columns:
+      - name: distribution_channel_id
+        tests:
+          - not_null
+          - unique
+      - name: distribution_channel
+      - name: date_load
+
+
+
+  - name: stg_hotel__deposit
+    description: "Deposit types used in bookings."
+    columns:
+      - name: deposit_id
+        tests:
+          - not_null
+          - unique
+      - name: deposit_type
+      - name: date_load
+
+
+
+  - name: stg_hotel__customer_type
+    description: "Customer type classifications."
+    columns:
+      - name: customer_type_id
+        tests:
+          - not_null
+          - unique
+      - name: customer_type
+      - name: date_load

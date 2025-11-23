@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'view',
+    materialized = 'incremental',
   )
 }}
 
@@ -8,9 +8,9 @@ WITH src_hotel_booking AS (
     SELECT * 
     FROM {{ source('hotel_project_bronze', 'hotel_booking') }}
 
-    --{% if is_incremental() %}
-    --where _fivetran_synced > (select max(date_load) from {{ this }})
-    --{% endif %}
+    {% if is_incremental() %}
+    where _fivetran_synced > (select max(date_load) from {{ this }})
+    {% endif %}
 
     ),
 
@@ -38,6 +38,8 @@ renamed_casted AS (
     market_segment:: varchar as market_segment,
     distribution_channel:: varchar as distribution_channel,
     deposit_type:: varchar as deposit_type,
+    agent:: varchar as agent,
+    company:: varchar as company,
     customer_type:: varchar as customer_type,
     previous_cancellations:: boolean as previous_cancellations,
     previous_bookings_not_canceled:: int as previous_bookings_not_canceled,

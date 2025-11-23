@@ -6,7 +6,6 @@
 
     SELECT
         room_id,
-        adults,
         reserved_room_type,
         assigned_room_type,
         CASE 

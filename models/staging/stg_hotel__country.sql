@@ -12,7 +12,7 @@ WITH base__hotel_booking  AS (
 renamed_casted AS ( 
     SELECT
         MD5(country) as country_id,
-        country
+        COALESCE(country, 'UNKNOWN') AS country
     FROM base__hotel_booking  
     )
 

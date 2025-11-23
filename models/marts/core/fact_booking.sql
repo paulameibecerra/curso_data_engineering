@@ -1,6 +1,6 @@
 {{
   config(
-    materialized='incrememtal',
+    materialized='incremental',
     unique_key = 'booking_id'
   )
 }}
@@ -25,6 +25,8 @@
         booking_changes,
         days_in_waiting_list,
         adr,
+        agent,
+        company,
         required_car_parking_spaces,
         total_of_special_requests,
         reservation_status,

@@ -11,9 +11,9 @@ WITH base__hotel_booking  AS (
 
 renamed_casted AS ( 
     SELECT
-        CONCAT(TO_VARCHAR(adults), '-', TO_VARCHAR(children), '-' ,TO_VARCHAR(babies)) as person_count_id,
+        CONCAT(TO_VARCHAR(COALESCE(adults,0)), '-', TO_VARCHAR(COALESCE(children,0)), '-', TO_VARCHAR(COALESCE(babies,0))) AS person_count_id,
         adults,
-        children,
+        COALESCE(children, 0) AS children,
         babies,
         adults + children + babies as total
 

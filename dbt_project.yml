@@ -16,25 +16,25 @@ clean-targets:
   - "dbt_packages"
 
 models:
+  dbt_project_evaluator:
+    +enabled: false
+    
+
   my_new_project:
 
-
     base:
-      +schema: "PROJECT_BRONZE"
+      +database: "PROJECT_SILVER"
+      +schema: "STAGING"
       +materialized: view
 
     staging:
-      +schema: "PROJECT_SILVER"
+      +database: "PROJECT_SILVER"
+      +schema: "STAGING"
       +materialized: view
 
-      base:
-        +materialized: view
-
-      staging:
-        +materialized: view
-
     marts:
-      +schema: "PROJECT_GOLD"
+      +database: "PROJECT_GOLD"
+      +schema: "MARTS"
 
       core:
         +materialized: table

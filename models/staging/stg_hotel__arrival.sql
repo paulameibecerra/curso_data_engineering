@@ -30,7 +30,7 @@ renamed_casted AS (
         END AS arrival_month,
         arrival_date_week_number as arrival_week,
         arrival_date_day_of_month as arrival_day,
-        DATE_FROM_PARTS(arrival_date_year, arrival_date_month_number, arrival_date_day_of_month) AS arrival_date
+        DATE_FROM_PARTS(arrival_date_year, arrival_month, arrival_date_day_of_month) AS arrival_date
 
     FROM base__hotel_booking  
     )

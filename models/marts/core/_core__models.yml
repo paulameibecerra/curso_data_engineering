@@ -1,0 +1,315 @@
+version: 2
+
+models:
+
+
+  - name: dim_client
+    description: >
+      Dimension table containing unique information about each hotel client.
+    columns:
+      - name: client_id
+        description: "Unique identifier for each client."
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: name
+        description: "Full name of the client."
+        data_type: varchar
+
+      - name: email
+        description: "Client's email address."
+        data_type: varchar
+
+      - name: is_valid_email_address
+        description: "Boolean indicating whether the email address matches a valid format."
+        data_type: boolean
+        data_tests:
+          - not_null
+
+      - name: phone_number
+        description: "Client's phone number."
+        data_type: varchar
+
+      - name: credit_card
+        description: "Masked credit card number."
+        data_type: varchar
+
+
+  - name: dim_arrival
+    description: >
+      Dimension table capturing normalized arrival date information.
+    columns:
+      - name: arrival_id
+        description: "Unique identifier for the arrival combination (year, month, day, week)."
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: arrival_date
+        description: "Full arrival date."
+        data_type: date
+        data_tests:
+          - not_null
+
+      - name: arrival_date_year
+        description: "Arrival year."
+        data_type: int
+
+      - name: arrival_date_month
+        description: "Arrival month name."
+        data_type: varchar
+
+      - name: arrival_date_month_number
+        description: "Arrival month number (1-12)."
+        data_type: int
+
+      - name: arrival_date_week_number
+        description: "Week number of the year."
+        data_type: int
+
+      - name: arrival_date_day_of_month
+        description: "Arrival day of the month."
+        data_type: int
+
+
+
+  - name: dim_hotel
+    description: "Dimension containing hotel types."
+    columns:
+      - name: hotel_id
+        description: "Hash identifier of the hotel type."
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: hotel
+        description: "Type of hotel (City Hotel, Resort Hotel)."
+        data_type: varchar
+
+
+
+  - name: dim_meal
+    description: "Dimension table for meal types."
+    columns:
+      - name: meal_id
+        data_tests:
+          - not_null
+          - unique
+        description: "Hashed identifier for meal type."
+        data_type: varchar
+
+      - name: meal
+        description: "Meal type (BB, HB, FB, SC, Undefined)."
+        data_type: varchar
+
+
+
+  - name: dim_market_segment
+    description: "Dimension for market segments."
+    columns:
+      - name: market_segment_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: market_segment
+        description: "Market segment category (Online TA, Direct, Groups, etc.)."
+        data_type: varchar
+
+
+
+  - name: dim_distribution_channel
+    description: "Dimension table for distribution channels."
+    columns:
+      - name: distribution_channel_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: distribution_channel
+        description: "Channel through which the booking was made."
+        data_type: varchar
+
+
+
+  - name: dim_customer_type
+    description: "Dimension for customer types."
+    columns:
+      - name: customer_type_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: customer_type
+        description: "Type of customer (Transient, Group, Contract, Transient-Party)."
+        data_type: varchar
+
+
+
+  - name: dim_deposit
+    description: "Dimension for deposit types."
+    columns:
+      - name: deposit_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: deposit_type
+        description: "Deposit type (No Deposit, Non Refund, Refundable)."
+        data_type: varchar
+
+
+
+  - name: dim_room
+    description: "Contains mapping between reserved and assigned room types."
+    columns:
+      - name: room_id
+        data_tests:
+          - not_null
+          - unique
+        data_type: varchar
+
+      - name: reserved_room_type
+        description: "Room type originally reserved."
+        data_type: varchar
+
+      - name: assigned_room_type
+        description: "Room type assigned at check-in."
+        data_type: varchar
+
+
+
+  - name: dim_person_count
+    description: "Dimension for number of adults, children, and babies."
+    columns:
+      - name: person_count_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: adults
+        data_type: int
+
+      - name: children
+        data_type: int
+
+      - name: babies
+        data_type: int
+
+
+
+  - name: dim_stays
+    description: "Total stay nights and distribution between week and weekend."
+    columns:
+      - name: stays_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: stays_in_weekend_nights
+        data_type: int
+
+      - name: stays_in_week_nights
+        data_type: int
+
+      - name: total_stays_nights
+        data_type: int
+
+
+
+  - name: fact_booking
+    description: "Main fact table storing booking events."
+    columns:
+      - name: booking_id
+        data_tests:
+          - not_null
+          - unique
+        data_type: varchar
+
+      - name: client_id
+        description: "Foreign key to dim_client."
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('dim_client')
+              field: client_id
+
+      - name: hotel_id
+        data_tests:
+          - relationships:
+              to: ref('dim_hotel')
+              field: hotel_id
+
+      - name: arrival_id
+        data_tests:
+          - relationships:
+              to: ref('dim_arrival')
+              field: arrival_id
+
+      - name: meal_id
+        data_tests:
+          - relationships:
+              to: ref('dim_meal')
+              field: meal_id
+
+      - name: room_id
+        data_tests:
+          - relationships:
+              to: ref('dim_room')
+              field: room_id
+
+      - name: market_segment_id
+        data_tests:
+          - relationships:
+              to: ref('dim_market_segment')
+              field: market_segment_id
+
+      - name: distribution_channel_id
+        data_tests:
+          - relationships:
+              to: ref('dim_distribution_channel')
+              field: distribution_channel_id
+
+      - name: customer_type_id
+        data_tests:
+          - relationships:
+              to: ref('dim_customer_type')
+              field: customer_type_id
+
+      - name: deposit_id
+        data_tests:
+          - relationships:
+              to: ref('dim_deposit')
+              field: deposit_id
+
+      - name: adr
+        description: "Average daily rate for the booking."
+        data_type: float
+
+      - name: booking_changes
+        description: "Number of changes applied to the booking."
+        data_type: int
+
+      - name: days_in_waiting_list
+        description: "Days in waiting list before confirmation."
+        data_type: int
+
+      - name: total_of_special_requests
+        description: "Total number of special requests made."
+        data_type: int
+
+      - name: date_load
+        description: "Load timestamp from ingestion."
+        data_type: timestamp
+        data_tests:
+          - not_null
