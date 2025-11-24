@@ -120,8 +120,6 @@ models:
         tests:
           - not_null
 
-      - name: date_load
-        description: "Load timestamp."
 
 
 
@@ -143,7 +141,6 @@ models:
 
       - name: phone_number
       - name: credit_card
-
       - name: date_load
 
 
@@ -155,7 +152,6 @@ models:
           - not_null
           - unique
       - name: hotel
-      - name: date_load
 
 
 
@@ -170,8 +166,6 @@ models:
       - name: stays_in_weekend_nights
       - name: stays_in_week_nights
       - name: total_stays_nights
-
-      - name: date_load
 
 
 
@@ -197,7 +191,6 @@ models:
           - not_null
           - unique
       - name: meal
-      - name: date_load
 
 
 
@@ -209,7 +202,6 @@ models:
           - not_null
           - unique
       - name: market_segment
-      - name: date_load
 
 
 
@@ -221,7 +213,6 @@ models:
           - not_null
           - unique
       - name: distribution_channel
-      - name: date_load
 
 
 
@@ -233,7 +224,6 @@ models:
           - not_null
           - unique
       - name: deposit_type
-      - name: date_load
 
 
 
@@ -245,4 +235,21 @@ models:
           - not_null
           - unique
       - name: customer_type
-      - name: date_load
+
+  - name: stg_hotel__agent
+    description: "ID of the travel agency that made the booking."
+    columns:
+      - name: agent_id
+        tests:
+          - not_null
+          - unique
+      - name: agent
+
+  - name: stg_hotel__company
+    description: "ID of the company/entity that made the booking or responsible for paying the booking."
+    columns:
+      - name: company_id
+        tests:
+          - not_null
+          - unique
+      - name: company

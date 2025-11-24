@@ -6,7 +6,6 @@
         unique_key='client_id',
         strategy='timestamp',
         updated_at= 'date_load',
-        hard_deletes='new_record'
     )
 }}
 

@@ -5,14 +5,14 @@
 }}
 
 WITH base__hotel_booking  AS (
-    SELECT DISTINCT country
+    SELECT DISTINCT agent
     FROM {{ ref("base__hotel_booking") }}
     ),
 
 renamed_casted AS ( 
     SELECT
-        MD5(country) as country_id,
-        country AS country
+        MD5(agent) as agent_id,
+        agent
     FROM base__hotel_booking  
     )
 

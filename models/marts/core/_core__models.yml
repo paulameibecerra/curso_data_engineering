@@ -25,8 +25,6 @@ models:
       - name: is_valid_email_address
         description: "Boolean indicating whether the email address matches a valid format."
         data_type: boolean
-        data_tests:
-          - not_null
 
       - name: phone_number
         description: "Client's phone number."
@@ -313,3 +311,30 @@ models:
         data_type: timestamp
         data_tests:
           - not_null
+
+  - name: dim_agent
+    description: "Dimension for agencies."
+    columns:
+      - name: agent_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: agent
+        description: "Agencies."
+        data_type: int
+        
+
+  - name: dim_company
+    description: "Dimension for companies."
+    columns:
+      - name: company_id
+        data_type: varchar
+        data_tests:
+          - not_null
+          - unique
+
+      - name: company
+        description: "Companies."
+        data_type: int

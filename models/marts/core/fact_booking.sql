@@ -1,6 +1,6 @@
 {{
   config(
-    materialized='incremental',
+    materialized='view',
     unique_key = 'booking_id'
   )
 }}
@@ -19,14 +19,14 @@
         customer_type_id,
         market_segment_id,
         distribution_channel_id,
+        agent_id,
+        company_id,
 
         previous_cancellations,
         previous_bookings_not_canceled,
         booking_changes,
         days_in_waiting_list,
         adr,
-        agent,
-        company,
         required_car_parking_spaces,
         total_of_special_requests,
         reservation_status,
@@ -34,6 +34,6 @@
 
         FROM {{ ref("stg_hotel__booking_norm") }}
 
-        {% if is_incremental() %}
-        WHERE date_load > (SELECT MAX(date_load) FROM {{ this }})
-        {% endif %}
+        --{% if is_incremental() %}
+        --WHERE date_load > (SELECT MAX(date_load) FROM {{ this }})
+        --{% endif %}
