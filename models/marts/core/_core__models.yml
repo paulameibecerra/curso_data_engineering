@@ -287,57 +287,57 @@ models:
         data_tests:
           - not_null
           - relationships:
-              to: ref('dim_client')
-              field: client_id
-
+              arguments:
+                to: ref('dim_client')
+                field: client_id
       - name: hotel_id
         data_tests:
           - relationships:
-              to: ref('dim_hotel')
-              field: hotel_id
-
+              arguments:
+                to: ref('dim_hotel')
+                field: hotel_id
       - name: arrival_id
         data_tests:
           - relationships:
-              to: ref('dim_arrival')
-              field: arrival_id
-
+              arguments:
+                to: ref('dim_arrival')
+                field: arrival_id
       - name: meal_id
         data_tests:
           - relationships:
-              to: ref('dim_meal')
-              field: meal_id
-
+              arguments:
+                to: ref('dim_meal')
+                field: meal_id
       - name: room_id
         data_tests:
           - relationships:
-              to: ref('dim_room')
-              field: room_id
-
+              arguments:
+                to: ref('dim_room')
+                field: room_id
       - name: market_segment_id
         data_tests:
           - relationships:
-              to: ref('dim_market_segment')
-              field: market_segment_id
-
+              arguments:
+                to: ref('dim_market_segment')
+                field: market_segment_id
       - name: distribution_channel_id
         data_tests:
           - relationships:
-              to: ref('dim_distribution_channel')
-              field: distribution_channel_id
-
+              arguments:
+                to: ref('dim_distribution_channel')
+                field: distribution_channel_id
       - name: customer_type_id
         data_tests:
           - relationships:
-              to: ref('dim_customer_type')
-              field: customer_type_id
-
+              arguments:
+                to: ref('dim_customer_type')
+                field: customer_type_id
       - name: deposit_id
         data_tests:
           - relationships:
-              to: ref('dim_deposit')
-              field: deposit_id
-
+              arguments:
+                to: ref('dim_deposit')
+                field: deposit_id
       - name: adr
         description: "Average daily rate for the booking."
         data_type: float
@@ -372,7 +372,7 @@ models:
       - name: agent
         description: "Agencies."
         data_type: int
-        
+
 
   - name: dim_company
     description: "Dimension for companies."

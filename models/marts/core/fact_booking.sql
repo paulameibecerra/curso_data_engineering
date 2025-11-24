@@ -21,7 +21,9 @@
         distribution_channel_id,
         agent_id,
         company_id,
-
+        
+        is_canceled,
+        is_repeated_guest,
         previous_cancellations,
         previous_bookings_not_canceled,
         booking_changes,

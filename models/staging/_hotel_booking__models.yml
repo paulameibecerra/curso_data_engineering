@@ -63,8 +63,8 @@ models:
         tests:
           - not_null
           - dbt_utils.accepted_range:
-              min_value: 0
-
+              arguments:
+                min_value: 0
       - name: previous_bookings_not_canceled
         description: "Previous bookings that were not canceled."
         tests:

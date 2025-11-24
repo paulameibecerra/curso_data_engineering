@@ -43,6 +43,8 @@ renamed_casted AS (
     COALESCE(customer_type, ''):: varchar as customer_type,
     COALESCE(previous_cancellations, FALSE):: boolean as previous_cancellations,
     COALESCE(previous_bookings_not_canceled, 0):: int as previous_bookings_not_canceled,
+    COALESCE(is_canceled, FALSE):: boolean as is_canceled,
+    COALESCE(is_repeated_guest, FALSE):: boolean as is_repeated_guest,
     COALESCE(booking_changes, 0):: int as booking_changes,
     COALESCE(days_in_waiting_list, 0):: int as days_in_waiting_list,
     COALESCE(adr, 0):: float as adr,

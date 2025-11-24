@@ -10,7 +10,7 @@ WITH base__hotel_booking AS (
     FROM {{ ref("base__hotel_booking") }}
 
     {% if is_incremental() %}
-    where _fivetran_synced > (select max(date_load) from {{ this }})
+    where date_load > (select max(date_load) from {{ this }})
     {% endif %}
     ),
 
@@ -33,6 +33,8 @@ renamed_casted AS (
         MD5(company) as company_id,
         previous_cancellations,
         previous_bookings_not_canceled,
+        is_canceled,
+        is_repeated_guest,
         booking_changes,
         days_in_waiting_list,
         adr,
