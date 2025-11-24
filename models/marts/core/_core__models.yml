@@ -13,6 +13,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: client_id
 
       - name: name
         description: "Full name of the client."
@@ -45,6 +49,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: arrival_id
 
       - name: arrival_date
         description: "Full arrival date."
@@ -83,6 +91,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: hotel_id
 
       - name: hotel
         description: "Type of hotel (City Hotel, Resort Hotel)."
@@ -97,6 +109,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: meal_id
         description: "Hashed identifier for meal type."
         data_type: varchar
 
@@ -114,6 +130,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: market_segment_id
 
       - name: market_segment
         description: "Market segment category (Online TA, Direct, Groups, etc.)."
@@ -129,6 +149,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: distribution_channel_id
 
       - name: distribution_channel
         description: "Channel through which the booking was made."
@@ -144,6 +168,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: customer_type_id
 
       - name: customer_type
         description: "Type of customer (Transient, Group, Contract, Transient-Party)."
@@ -159,6 +187,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: deposit_id
 
       - name: deposit_type
         description: "Deposit type (No Deposit, Non Refund, Refundable)."
@@ -173,6 +205,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: room_id
         data_type: varchar
 
       - name: reserved_room_type
@@ -193,6 +229,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: person_count_id
 
       - name: adults
         data_type: int
@@ -213,6 +253,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: stays_id
 
       - name: stays_in_weekend_nights
         data_type: int
@@ -232,6 +276,10 @@ models:
         data_tests:
           - not_null
           - unique
+          - relationships:
+              arguments:
+                to: ref('fact_booking')
+                field: booking_id
         data_type: varchar
 
       - name: client_id

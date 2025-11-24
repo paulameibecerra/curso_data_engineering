@@ -1,6 +1,6 @@
 {{
   config(
-    materialized = 'view',
+    materialized = 'incremental',
   )
 }}
 
@@ -8,9 +8,9 @@ WITH src_hotel_booking AS (
     SELECT * 
     FROM {{ source('hotel_project_bronze', 'hotel_booking') }}
 
-    --{% if is_incremental() %}
-    --where _fivetran_synced > (select max(date_load) from {{ this }})
-    --{% endif %}
+    {% if is_incremental() %}
+    where _fivetran_synced > (select max(date_load) from {{ this }})
+    {% endif %}
 
     ),
 

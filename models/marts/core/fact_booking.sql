@@ -1,6 +1,6 @@
 {{
   config(
-    materialized='view',
+    materialized='incremental',
     unique_key = 'booking_id'
   )
 }}
@@ -34,6 +34,6 @@
 
         FROM {{ ref("stg_hotel__booking_norm") }}
 
-        --{% if is_incremental() %}
-        --WHERE date_load > (SELECT MAX(date_load) FROM {{ this }})
-        --{% endif %}
+        {% if is_incremental() %}
+        WHERE date_load > (SELECT MAX(date_load) FROM {{ this }})
+        {% endif %}

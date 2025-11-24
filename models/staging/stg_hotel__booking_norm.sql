@@ -1,12 +1,17 @@
 {{
   config(
-    materialized='view',
+    materialized='incremental',
+    unique_key = 'booking_id'
   )
 }}
 
 WITH base__hotel_booking AS (
     SELECT * 
     FROM {{ ref("base__hotel_booking") }}
+
+    {% if is_incremental() %}
+    where _fivetran_synced > (select max(date_load) from {{ this }})
+    {% endif %}
     ),
 
 renamed_casted AS ( 
