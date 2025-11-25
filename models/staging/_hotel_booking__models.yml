@@ -24,17 +24,17 @@ models:
           - not_null
 
       - name: arrival_id
-        description: "Hash key for the normalized arrival dimension."
+        description: "Hash key for the normalized arrival."
         tests:
           - not_null
 
       - name: person_count_id
-        description: "Hash key for the combination of adults/children/babies."
+        description: "Key for the combination of adults/children/babies."
         tests:
           - not_null
 
       - name: room_id
-        description: "Hash key for reserved vs assigned room type."
+        description: "Key for reserved vs assigned room type."
         tests:
           - not_null
 
@@ -81,7 +81,7 @@ models:
           - not_null
 
       - name: adr
-        description: "Average Daily Rate."
+        description: "Average Daily Rate what the host pais for each booked night."
         tests:
           - not_null
 
@@ -102,7 +102,7 @@ models:
 
 
   - name: stg_hotel__arrival
-    description: "Staging of arrival date fields and derived month number."
+    description: "Staging of arrival date fields and derived month number and date."
     columns:
       - name: arrival_id
         tests:
@@ -167,6 +167,17 @@ models:
       - name: stays_in_week_nights
       - name: total_stays_nights
 
+  - name: stg_hotel__room_desc
+    description: "Descriptions of type rooms."
+    columns:
+      - name: room_type
+        tests:
+          - not_null
+          - unique
+
+      - name: room_desc
+        tests: 
+          - not_null
 
 
   - name: stg_hotel__n_persons
@@ -179,7 +190,6 @@ models:
       - name: adults
       - name: children
       - name: babies
-      - name: date_load
 
 
 

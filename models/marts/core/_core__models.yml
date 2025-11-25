@@ -214,10 +214,17 @@ models:
       - name: reserved_room_type
         description: "Room type originally reserved."
         data_type: varchar
+      
+      - name: reserved_room_type_desc
+        description: "Room description originally reserved"
+        data_type: varchar
 
       - name: assigned_room_type
         description: "Room type assigned at check-in."
         data_type: varchar
+
+      - name: assigned_room_type_desc
+        description: "Room description assigned at check-in"
 
 
 
