@@ -1,6 +1,6 @@
 {{
   config(
-    materialized='view',
+    materialized='table',
   )
 }}
 
@@ -8,7 +8,6 @@
         person_count_id,
         adults,
         children,
-        babies,
-        total
+        babies
 
         FROM {{ ref("stg_hotel__n_persons") }}

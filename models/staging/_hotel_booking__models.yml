@@ -178,6 +178,21 @@ models:
       - name: room_desc
         tests: 
           - not_null
+    
+  - name: stg_hotel__room
+    description: "Type of rooms assigned and reserved."
+    columns:
+      - name: room_id
+        tests:
+          - not_null
+          - unique
+
+      - name: reserved_room_type
+        tests: 
+          - not_null
+      - name: assigned_room_type
+        tests:
+          - not_null
 
 
   - name: stg_hotel__n_persons

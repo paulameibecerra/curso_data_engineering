@@ -13,8 +13,7 @@ renamed_casted AS (
     SELECT
         CONCAT(TO_VARCHAR(stays_in_weekend_nights), '-', TO_VARCHAR(stays_in_week_nights)) as stays_id,
         stays_in_weekend_nights,
-        stays_in_week_nights,
-        stays_in_weekend_nights + stays_in_week_nights as total_stays_nights
+        stays_in_week_nights
 
     FROM base__hotel_booking  
     )
