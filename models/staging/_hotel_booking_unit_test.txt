@@ -1,0 +1,19 @@
+unit_tests:
+  - name: test_is_valid_email
+    description: "Check if email is valid"
+    model: 'stg_hotel__client'
+
+    given:
+      - input: ref('base__hotel_booking')
+        rows:
+          - {name: "A", email: "ekollaschek2q@tuttocitta.it", phone_number: "1", credit_card: "x", date_load: "2024-01-01"}
+          - {name: "A", email: "sdivers2p@msu.edu", phone_number: "1", credit_card: "x", date_load: "2024-01-01"}
+          - {name: "A", email: "wheinecke2l@ebay.com", phone_number: "1", credit_card: "x", date_load: "2024-01-01"}
+          - {name: "B", email: "fail_email", phone_number: "1", credit_card: "x", date_load: "2024-01-01"}
+
+    expect:
+      rows:
+        - {email: "ekollaschek2q@tuttocitta.it", is_valid_email_address: true}
+        - {email: "sdivers2p@msu.edu", is_valid_email_address: true}
+        - {email: "wheinecke2l@ebay.com", is_valid_email_address: true}
+        - {email: "fail_email", is_valid_email_address: false}

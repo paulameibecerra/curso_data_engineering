@@ -360,6 +360,8 @@ models:
       - name: total_of_special_requests
         description: "Total number of special requests made."
         data_type: int
+      - name: lead_time
+        description: "Number of days that elapsed between the entering date of the booking into the PMS and the arrival date."
 
       - name: date_load
         description: "Load timestamp from ingestion."

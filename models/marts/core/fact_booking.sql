@@ -22,6 +22,7 @@
         agent_id,
         company_id,
         
+        lead_time,
         is_canceled,
         is_repeated_guest,
         previous_cancellations,

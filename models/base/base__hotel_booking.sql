@@ -44,6 +44,7 @@ renamed_casted AS (
     COALESCE(booking_changes, 0):: int as booking_changes,
     COALESCE(days_in_waiting_list, 0):: int as days_in_waiting_list,
     COALESCE(adr, 0):: float as adr,
+    COALESCE(lead_time, 0):: int as lead_time,
     COALESCE(required_car_parking_spaces, 0):: int as required_car_parking_spaces,
     COALESCE(total_of_special_requests, 0):: int as total_of_special_requests,
     COALESCE(reservation_status, ''):: varchar as reservation_status,

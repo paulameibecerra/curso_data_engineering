@@ -38,6 +38,7 @@ renamed_casted AS (
         booking_changes,
         days_in_waiting_list,
         adr,
+        lead_time,
         required_car_parking_spaces,
         total_of_special_requests,
         reservation_status,
